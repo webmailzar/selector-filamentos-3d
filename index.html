@@ -14,28 +14,24 @@
         .logo { max-width: 180px; height: auto; margin-bottom: 10px; display: inline-block; }
         h1 { font-size: 1.7rem; font-weight: 900; margin: 0; color: #1e293b; letter-spacing: -0.02em; }
 
-        /* FILTROS */
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 25px; }
         .btn { background: var(--c); border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 14px; text-align: center; cursor: pointer; font-size: 0.75rem; font-weight: 800; transition: 0.2s; color: #1e293b; }
         .btn.active { border-color: var(--p); background: #eff6ff; color: var(--p); box-shadow: 0 4px 10px rgba(30, 58, 138, 0.1); }
 
-        /* SELECTOR HARDWARE */
         .hw-box { background: white; border: 1px solid #e2e8f0; border-radius: 20px; padding: 20px; margin-bottom: 30px; text-align: center; }
         .p-label-top { font-size: 0.7rem; color: var(--m); font-weight: 800; text-transform: uppercase; display: block; margin-bottom: 12px; }
         .switch { display: flex; background: #f1f5f9; padding: 5px; border-radius: 12px; }
         .sw-btn { flex: 1; padding: 12px; font-size: 0.75rem; font-weight: 800; border-radius: 9px; cursor: pointer; color: var(--m); border: none; background: transparent; }
         .sw-btn.active { background: white; color: var(--p); box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
 
-        /* TARJETAS */
         .card { background: white; border-radius: 24px; padding: 25px; margin-bottom: 20px; border: 1px solid #e2e8f0; position: relative; }
-        .card.low-match { opacity: 0.45; filter: grayscale(1); }
+        .card.low-match { opacity: 0.45; filter: grayscale(1); order: 99; } /* El order:99 los manda al final */
         .title { font-size: 1.8rem; font-weight: 900; margin: 0; color: var(--p); }
         .diff { font-size: 0.6rem; font-weight: 800; padding: 4px 10px; border-radius: 6px; text-transform: uppercase; margin-top: 10px; display: inline-block; }
         .d1 { background: #dcfce7; color: #166534; } .d2 { background: #fef9c3; color: #854d0e; } .d3 { background: #fee2e2; color: #991b1b; }
         
         .desc { font-size: 0.95rem; color: #475569; margin: 15px 0; line-height: 1.5; }
 
-        /* PARÁMETROS UNA COLUMNA */
         .params { background: #f8fafc; border-radius: 16px; padding: 18px; border: 1px solid #e2e8f0; }
         .p-list { display: flex; flex-direction: column; gap: 10px; }
         .p-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1.5px solid #f1f5f9; padding-bottom: 8px; }
@@ -44,6 +40,7 @@
         .p-val { font-size: 0.9rem; font-weight: 800; text-align: right; color: #1e293b; }
 
         .top-tag { position: absolute; top: 20px; right: 20px; background: var(--a); color: white; font-size: 0.6rem; padding: 5px 12px; border-radius: 100px; font-weight: 900; }
+        #results { display: flex; flex-direction: column; } /* Necesario para el order */
     </style>
 </head>
 <body>
@@ -112,20 +109,29 @@
 
         let scored = db.map(m => {
             let score = 0;
+            // Puntuación por filtros activos
             activeF.forEach(k => {
-                score += m[k] * 15;
-                if (m[k] < 3) score -= 60;
+                score += m[k] * 20;
             });
+            
             let status = '';
-            if (currentHW === 'Abierta' && m.type === 'Cerrada') status = 'low-match';
-            if (activeF.length > 0 && score < 10) status = 'low-match';
+            // Lógica CRÍTICA: Si la impresora es ABIERTA y el material requiere CERRADA, penalizamos brutalmente el score
+            if (currentHW === 'Abierta' && m.type === 'Cerrada') {
+                score -= 1000;
+                status = 'low-match';
+            }
+            // Si no hay filtros y el hardware no coincide
+            if (activeF.length === 0 && currentHW === 'Abierta' && m.type === 'Cerrada') status = 'low-match';
+            // Si hay filtros pero el material no encaja nada
+            if (activeF.length > 0 && score < 10 && status !== 'low-match') status = 'low-match';
+
             return { ...m, score, status };
         });
 
+        // Ordenamos por puntuación (los -1000 irán al final)
         scored.sort((a, b) => b.score - a.score);
 
         scored.forEach((m, i) => {
-            if (activeF.length > 0 && m.score < -40) return;
             const isBest = i === 0 && activeF.length > 0 && m.status !== 'low-match';
             
             res.innerHTML += `
@@ -133,7 +139,7 @@
                     ${isBest ? '<span class="top-tag">RECOMENDADO</span>' : ''}
                     <h2 class="title">${m.name}</h2>
                     <span class="diff d${m.diff}">DIFICULTAD: ${m.diff==1?'BAJA':m.diff==2?'MEDIA':'ALTA'}</span>
-                    <p class="desc">${m.type === 'Cerrada' && currentHW === 'Abierta' ? '⚠️ <b>Nota:</b> Requiere impresora cerrada.' : m.desc}</p>
+                    <p class="desc">${m.status === 'low-match' && currentHW === 'Abierta' && m.type === 'Cerrada' ? '⚠️ <b>Incompatible:</b> Este material requiere cámara cerrada para evitar warping térmico.' : m.desc}</p>
                     <div class="params">
                         <div class="p-list">
                             <div class="p-item"><span class="p-label">HOTEND</span><span class="p-val">${m.nozzle}</span></div>
