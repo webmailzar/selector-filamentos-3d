@@ -22,7 +22,8 @@
             justify-content: center;
             box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
         }
-        .web-logo svg { width: 45px; height: 45px; }
+        /* Ajuste de escala para que la S se vea grande como en la imagen 2 */
+        .web-logo svg { width: 50px; height: 50px; }
         
         h1 { font-size: 2.4rem; font-weight: 900; margin: 0; letter-spacing: -2px; color: #1e293b; }
         .subtitle { font-size: 0.8rem; font-weight: 700; color: var(--m); text-transform: uppercase; letter-spacing: 2px; }
@@ -55,7 +56,6 @@
         .p-val { font-size: 1.1rem; font-weight: 800; color: #1e293b; }
 
         .warn { font-size: 0.95rem; color: #991b1b; background: #fef2f2; padding: 25px; border-radius: 22px; margin-top: 35px; font-weight: 600; border-left: 8px solid #ef4444; line-height: 1.5; }
-        .warn-blue { border-left-color: #3b82f6; background: #eff6ff; color: #1e40af; }
     </style>
 </head>
 <body>
@@ -64,7 +64,7 @@
     <header>
         <div class="web-logo">
             <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M30 35H70V48H43V52H70V65H30V52H57V48H30V35Z" fill="#22c55e"/>
+                <path d="M25 30H75V42H40V48H75V70H25V58H60V52H25V30Z" fill="#22c55e"/>
             </svg>
         </div>
         <h1>SELFIL</h1>
@@ -94,21 +94,21 @@
 
 <script>
     const db = [
-        { name: "PLA Estándar", ref: "Bambu Basic, Sunlu, Elegoo", tags: ['easy'], machine: "Abierta", desc: "El material universal. Perfecto para decoración y piezas que no sufran calor.", hot: "210°C", bed: "60°C", nozzle: "Normal", warn: null },
-        { name: "PLA+", ref: "Sunlu PLA+, Esun PLA+, Elegoo", tags: ['easy', 'mech'], machine: "Abierta", desc: "Mejorado para mayor tenacidad. Menos quebradizo que el PLA normal.", hot: "215°C", bed: "60°C", nozzle: "Normal", warn: "Excelente para prototipos funcionales." },
-        { name: "PLA HS (High Speed)", ref: "Bambu PLA HF, Sunlu HS", tags: ['easy'], machine: "Abierta", desc: "Optimizado para altas velocidades de flujo.", hot: "220°C", bed: "60°C", nozzle: "Normal", warn: null },
-        { name: "PLA 870 / Tough", ref: "Sakata 870, Bambu Tough", tags: ['mech', 'easy'], machine: "Abierta", desc: "Resistencia industrial. Gran capacidad de mecanizado post-impresión.", hot: "225°C", bed: "60°C", nozzle: "Normal", warn: "Requiere recocido para máxima resistencia." },
-        { name: "PETG Estándar", ref: "Sunlu, Elegoo", tags: ['water', 'easy', 'mech'], machine: "Abierta", desc: "Resistente a químicos y humedad. Muy bueno para piezas que necesiten ser taladradas o lijadas.", hot: "240°C", bed: "75°C", nozzle: "Normal", warn: "Ventilación baja (20-40%) para evitar fragilidad." },
-        { name: "PETG HS (High Speed)", ref: "Bambu HF, Sunlu HS", tags: ['water', 'easy', 'mech'], machine: "Abierta", desc: "La versatilidad del PETG optimizada para máquinas rápidas.", hot: "250°C", bed: "80°C", nozzle: "Normal", warn: null },
-        { name: "ASA", ref: "Bambu ASA, Sunlu, Fiberlogy", tags: ['water', 'heat', 'mech'], machine: "Cerrada", desc: "El rey del exterior. Máxima resistencia UV y térmica (95°C).", hot: "260°C", bed: "105°C", nozzle: "Normal", warn: "Obligatorio: Máquina Cerrada para evitar warping." },
-        { name: "ABS", ref: "Bambu ABS, Sunlu", tags: ['heat', 'mech'], machine: "Cerrada", desc: "Resistencia térmica industrial. Nota: Se degrada con luz solar directa (UV).", hot: "255°C", bed: "100°C", nozzle: "Normal", warn: "Obligatorio: Máquina Cerrada." },
-        { name: "TPU 95A / 98A", ref: "Bambu TPU, Overture", tags: ['flex', 'easy'], shore: "95A", flex: 40, color: "#3b82f6", machine: "Abierta", desc: "Flexible resistente. El más fácil de imprimir.", hot: "235°C", bed: "45°C", nozzle: "Normal", warn: null },
-        { name: "TPU 82A", ref: "NinjaTek, Recreus", tags: ['flex'], shore: "82A", flex: 70, color: "#8b5cf6", machine: "Abierta", desc: "Dureza intermedia. Muy elástico.", hot: "230°C", bed: "40°C", nozzle: "Normal", warn: null },
-        { name: "TPU 70A", ref: "Filaflex 70A", tags: ['flex'], shore: "70A", flex: 95, color: "#ec4899", machine: "Abierta", desc: "Máxima elasticidad. Tacto gomoso.", hot: "220°C", bed: "35°C", nozzle: "Normal", warn: "Imprimir muy lento." },
-        { name: "FIBRA DE CARBONO", ref: "Bambu PA-CF, PETG-CF", tags: ['mech', 'heat'], machine: "Cerrada", desc: "Máxima rigidez. Acabado profesional mate.", hot: "280°C", bed: "95°C", nozzle: "Endurecida", warn: "Requiere boquilla de acero endurecido." },
-        { name: "PLA MADERA", ref: "Sunlu Wood", tags: ['look'], machine: "Abierta", desc: "Contiene fibras de madera. Se puede lijar y barnizar.", hot: "205°C", bed: "60°C", nozzle: "Especial (>0.6)", warn: "Boquilla de 0.6mm recomendada." },
-        { name: "PLA SILK", ref: "Bambu Silk, Sunlu", tags: ['look', 'easy'], machine: "Abierta", desc: "Acabado brillante estético.", hot: "215°C", bed: "60°C", nozzle: "Normal", warn: null },
-        { name: "PLA GLITTER", ref: "Bambu Sparkle", tags: ['look', 'easy'], machine: "Abierta", desc: "Efecto purpurina.", hot: "215°C", bed: "60°C", nozzle: "Normal", warn: null }
+        { name: "PLA Estándar", ref: "Bambu Basic, Sunlu, Elegoo", tags: ['easy'], machine: "Abierta", desc: "Material universal para piezas decorativas y prototipos rápidos.", hot: "210°C", bed: "60°C", nozzle: "Normal", warn: null },
+        { name: "PLA+", ref: "Sunlu PLA+, Esun PLA+, Elegoo", tags: ['easy', 'mech'], machine: "Abierta", desc: "Versión mejorada con mayor resistencia al impacto y facilidad de lijado.", hot: "215°C", bed: "60°C", nozzle: "Normal", warn: "Ideal para piezas que requieren un extra de dureza." },
+        { name: "PLA HS (High Speed)", ref: "Bambu PLA HF, Sunlu HS", tags: ['easy'], machine: "Abierta", desc: "Optimizado para extrusores de alto flujo en máquinas rápidas.", hot: "220°C", bed: "60°C", nozzle: "Normal", warn: null },
+        { name: "PLA 870 / Tough", ref: "Sakata 870, Bambu Tough", tags: ['mech', 'easy'], machine: "Abierta", desc: "Resistencia mecánica similar al ABS pero con facilidad de impresión del PLA.", hot: "225°C", bed: "60°C", nozzle: "Normal", warn: "Se puede mecanizar perfectamente tras el recocido." },
+        { name: "PETG Estándar", ref: "Sunlu, Elegoo", tags: ['water', 'easy', 'mech'], machine: "Abierta", desc: "Resistente a la humedad y químicos. Muy fácil de mecanizar, taladrar y lijar.", hot: "240°C", bed: "75°C", nozzle: "Normal", warn: "Excelente equilibrio entre resistencia y facilidad." },
+        { name: "PETG HS (High Speed)", ref: "Bambu HF, Sunlu HS", tags: ['water', 'easy', 'mech'], machine: "Abierta", desc: "PETG diseñado para no perder propiedades a velocidades elevadas.", hot: "250°C", bed: "80°C", nozzle: "Normal", warn: null },
+        { name: "ASA", ref: "Bambu ASA, Sunlu, Fiberlogy", tags: ['water', 'heat', 'mech'], machine: "Cerrada", desc: "Resistente a la intemperie y rayos UV. Soporta hasta 95°C sin deformarse.", hot: "260°C", bed: "105°C", nozzle: "Normal", warn: "Obligatorio: Impresora Cerrada." },
+        { name: "ABS", ref: "Bambu ABS, Sunlu", tags: ['heat', 'mech'], machine: "Cerrada", desc: "Material técnico de alta resistencia térmica. Nota: No apto para exterior (se degrada con UV).", hot: "255°C", bed: "100°C", nozzle: "Normal", warn: "Obligatorio: Impresora Cerrada." },
+        { name: "TPU 95A / 98A", ref: "Bambu TPU, Overture", tags: ['flex', 'easy'], shore: "95A", flex: 40, color: "#3b82f6", machine: "Abierta", desc: "Elastómero versátil y resistente. El más sencillo de imprimir.", hot: "235°C", bed: "45°C", nozzle: "Normal", warn: null },
+        { name: "TPU 82A", ref: "NinjaTek, Recreus", tags: ['flex'], shore: "82A", flex: 70, color: "#8b5cf6", machine: "Abierta", desc: "Dureza media. Muy elástico y duradero.", hot: "230°C", bed: "40°C", nozzle: "Normal", warn: null },
+        { name: "TPU 70A", ref: "Filaflex 70A", tags: ['flex'], shore: "70A", flex: 95, color: "#ec4899", machine: "Abierta", desc: "Extremadamente flexible. Tacto similar a la goma blanda.", hot: "220°C", bed: "35°C", nozzle: "Normal", warn: "Imprimir a baja velocidad." },
+        { name: "FIBRA DE CARBONO", ref: "Bambu PA-CF, PETG-CF", tags: ['mech', 'heat'], machine: "Cerrada", desc: "Aporta una rigidez estructural inigualable y acabado mate.", hot: "280°C", bed: "95°C", nozzle: "Endurecida", warn: "Abrasivo: Requiere boquilla de acero endurecido." },
+        { name: "PLA MADERA", ref: "Sunlu Wood", tags: ['look', 'mech'], machine: "Abierta", desc: "Compuesto con partículas de madera real. Se lija y talla como madera.", hot: "205°C", bed: "60°C", nozzle: "Especial (>0.6)", warn: "Boquilla de 0.6mm para evitar atascos." },
+        { name: "PLA SILK", ref: "Bambu Silk, Sunlu", tags: ['look', 'easy'], machine: "Abierta", desc: "Acabado brillante y satinado para piezas decorativas.", hot: "215°C", bed: "60°C", nozzle: "Normal", warn: null },
+        { name: "PLA GLITTER", ref: "Bambu Sparkle", tags: ['look', 'easy'], machine: "Abierta", desc: "Contiene partículas brillantes que disimulan las capas.", hot: "215°C", bed: "60°C", nozzle: "Normal", warn: null }
     ];
 
     let activeTags = ['easy']; 
