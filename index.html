@@ -2,149 +2,131 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SELFIL</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selector de Filamentos 3D</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --p: #22c55e; --bg: #f1f5f9; --card: #ffffff; --t: #0f172a; --m: #64748b; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--t); margin: 0; padding: 15px; }
+        :root { --p: #2563eb; --bg: #f8fafc; --c: #ffffff; --t: #0f172a; --m: #64748b; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--t); margin: 0; padding: 10px; }
         .container { max-width: 500px; margin: auto; }
+        header { text-align: center; margin: 25px 0; }
+        h1 { font-size: 1.8rem; font-weight: 900; margin: 0; color: #1e293b; letter-spacing: -0.02em; }
+
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 20px; }
+        .btn { background: var(--c); border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 12px; text-align: center; cursor: pointer; font-size: 0.7rem; font-weight: 700; transition: 0.2s; }
+        .btn.active { border-color: var(--p); background: #eff6ff; color: var(--p); box-shadow: 0 4px 10px rgba(37, 99, 235, 0.1); }
+
+        .hw-box { background: white; border: 1px solid #e2e8f0; border-radius: 16px; padding: 15px; margin-bottom: 20px; text-align: center; }
+        .switch { display: flex; background: #f1f5f9; padding: 4px; border-radius: 8px; margin-top: 8px; }
+        .sw-btn { flex: 1; padding: 8px; font-size: 0.7rem; font-weight: 800; border-radius: 6px; cursor: pointer; color: var(--m); }
+        .sw-btn.active { background: white; color: var(--p); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+
+        .card { background: white; border-radius: 20px; padding: 20px; margin-bottom: 15px; border: 1px solid #e2e8f0; position: relative; }
+        .card.risky { opacity: 0.4; filter: grayscale(1); border-style: dashed; }
+        .title { font-size: 1.4rem; font-weight: 900; margin: 0; color: var(--p); }
+        .diff { font-size: 0.55rem; font-weight: 800; padding: 3px 8px; border-radius: 6px; text-transform: uppercase; margin-top: 6px; display: inline-block; }
+        .d1 { background: #dcfce7; color: #166534; } .d2 { background: #fef9c3; color: #854d0e; } .d3 { background: #fee2e2; color: #991b1b; }
         
-        header { text-align: center; margin-bottom: 25px; }
-        .web-logo { width: 65px; height: 65px; background: #1e293b url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M30 30 L70 30 L70 40 L40 40 L40 50 L70 50 L70 70 L30 70 L30 60 L60 60 L60 50 L30 50 Z' fill='%2322c55e'/%3E%3C/svg%3E") no-repeat center/75%; border-radius: 18px; margin: 0 auto 12px; border: 2px solid var(--p); }
-        h1 { font-size: 2rem; font-weight: 900; margin: 0; letter-spacing: -1px; }
-        .subtitle { font-size: 0.75rem; font-weight: 700; color: var(--m); text-transform: uppercase; }
+        .desc { font-size: 0.8rem; color: #475569; margin: 12px 0; line-height: 1.4; }
 
-        .hw-box { background: var(--card); border-radius: 16px; padding: 20px; margin: 25px 0; border: 1px solid #e2e8f0; }
-        .hw-label { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: var(--m); display: block; text-align: center; margin-bottom: 12px; }
-        .switch { display: flex; background: #f1f5f9; padding: 6px; border-radius: 12px; gap: 6px; }
-        .sw-btn { flex: 1; padding: 14px 5px; font-size: 0.8rem; font-weight: 800; border-radius: 10px; cursor: pointer; text-align: center; color: var(--m); transition: 0.2s; }
-        .sw-btn.active { background: white; color: var(--p); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 30px; }
-        .btn { background: white; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px 10px; text-align: center; cursor: pointer; font-size: 0.9rem; font-weight: 800; color: var(--m); transition: 0.2s; border-bottom: 4px solid #cbd5e1; }
-        .btn.active { border-color: var(--p); background: #f0fdf4; color: #15803d; border-bottom-width: 1px; transform: translateY(4px); }
-
-        .card { background: white; border-radius: 28px; padding: 25px; margin-bottom: 20px; border: 1px solid #e2e8f0; position: relative; }
-        .best-tag { position: absolute; top: -12px; right: 25px; background: #f59e0b; color: white; padding: 6px 16px; border-radius: 100px; font-size: 0.7rem; font-weight: 900; z-index: 10; }
-        .risky { opacity: 0.6; filter: grayscale(0.8); border-style: dashed; }
+        .params { background: #f8fafc; border-radius: 12px; padding: 15px; border: 1px solid #e2e8f0; }
+        .params-t { font-size: 0.6rem; color: #f59e0b; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; display: block; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px; }
         
-        .brand-ref { color: var(--m); font-size: 0.65rem; font-weight: 700; text-transform: uppercase; display: block; margin-bottom: 14px; letter-spacing: 0.6px; }
-        .title { font-size: 1.7rem; font-weight: 900; margin-bottom: 8px; color: #1e293b; }
-        .desc-text { font-size: 0.85rem; color: var(--m); margin: 15px 0 35px 0; line-height: 1.5; }
-        
-        .flex-zone { background: #f8fafc; padding: 15px; border-radius: 15px; margin-bottom: 25px; border: 1px solid #edf2f7; }
-        .flex-bar { height: 12px; background: #e2e8f0; border-radius: 10px; margin-top: 10px; }
-        .flex-fill { height: 100%; border-radius: 10px; transition: 0.6s; }
-
-        .params { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-        .p-item { border-bottom: 1px solid #f1f5f9; padding-bottom: 10px; }
+        .p-list { display: flex; flex-direction: column; gap: 6px; }
+        .p-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f1f5f9; padding-bottom: 2px; }
         .p-label { font-size: 0.6rem; color: var(--m); font-weight: 700; text-transform: uppercase; }
-        .p-val { font-size: 0.9rem; font-weight: 800; color: #1e293b; }
+        .p-val { font-size: 0.75rem; font-weight: 700; text-align: right; }
 
-        .warn { font-size: 0.85rem; color: #991b1b; background: #fef2f2; padding: 18px; border-radius: 16px; margin-top: 25px; font-weight: 600; border-left: 6px solid #ef4444; }
+        .top-tag { position: absolute; top: 15px; right: 15px; background: #f59e0b; color: white; font-size: 0.5rem; padding: 4px 8px; border-radius: 100px; font-weight: 800; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <header>
-        <div class="web-logo"></div>
-        <h1>SELFIL</h1>
-        <div class="subtitle">Guía de filamentos 3D</div>
-    </header>
+    <header><h1>Selector de Filamentos 3D</h1></header>
+
+    <div class="grid">
+        <div class="btn" onclick="toggle(this, 'easy')">✨ FÁCIL</div>
+        <div class="btn" onclick="toggle(this, 'uv')">☀️ SOL/UV</div>
+        <div class="btn" onclick="toggle(this, 'water')">💧 AGUA</div>
+        <div class="btn" onclick="toggle(this, 'mech')">🛠️ MECANIZABLE</div>
+        <div class="btn" onclick="toggle(this, 'heat')">🔥 CALOR</div>
+        <div class="btn" onclick="toggle(this, 'flex')">➰ FLEXIBLE</div>
+    </div>
 
     <div class="hw-box">
-        <span class="hw-label">Configuración de tu impresora</span>
+        <span class="p-label">Hardware de tu Impresora</span>
         <div class="switch">
-            <div id="m1" class="sw-btn active" onclick="setPr('Abierta')">Abierta</div>
-            <div id="m2" class="sw-btn" onclick="setPr('Cerrada')">Máquina Cerrada</div>
-            <div id="m3" class="sw-btn" onclick="setPr('Indistinto')">Ambas</div>
+            <div id="b1" class="sw-btn active" onclick="setPr('Abierta')">Abierta</div>
+            <div id="b2" class="sw-btn" onclick="setPr('Cerrada')">Cerrada</div>
         </div>
     </div>
 
-    <div class="grid">
-        <div id="btn-easy" class="btn active" onclick="toggle(this, 'easy')">✨ Fácil</div>
-        <div class="btn" onclick="toggle(this, 'water')">💧 Agua/UV</div>
-        <div class="btn" onclick="toggle(this, 'mech')">🛠️ Mecánica</div>
-        <div class="btn" onclick="toggle(this, 'flex')">➰ Flexible</div>
-        <div class="btn" onclick="toggle(this, 'heat')">🔥 Calor</div>
-        <div class="btn" onclick="toggle(this, 'look')">🎨 Estético</div>
-    </div>
-
-    <div id="results"></div>
+    <div id="res"></div>
 </div>
 
 <script>
     const db = [
-        { name: "PLA Estándar", ref: "Bambu PLA Basic, Sunlu, Elegoo", tags: ['easy'], machine: "Abierta", desc: "Sencillo y fiable. Ideal para piezas decorativas.", hot: "210°C", bed: "60°C", nozzle: "Normal", warn: null },
-        { name: "PLA 870 / Tough", ref: "Sakata 870, Bambu Tough", tags: ['mech', 'easy'], machine: "Abierta", desc: "Resistencia mecánica superior. Mejor lijado y taladrado.", hot: "225°C", bed: "60°C", nozzle: "Normal", warn: "Requiere recocido (Annealing) para máxima dureza." },
-        { name: "PETG Estándar", ref: "Elegoo PETG, Sunlu, Real", tags: ['water', 'easy'], machine: "Abierta", desc: "Resistente a químicos y humedad. Muy equilibrado.", hot: "240°C", bed: "75°C", nozzle: "Normal", warn: "Ventilación dinámica (20-40%). Evita enfriar rápido para no perder adhesión entre capas." },
-        { name: "PETG HS (High Speed)", ref: "Bambu PETG HF, Sunlu HS", tags: ['water', 'easy'], machine: "Abierta", desc: "Flujo optimizado para CoreXY rápidas. Menos hilos.", hot: "250°C", bed: "80°C", nozzle: "Normal", warn: "Enfriamiento dinámico: Ventilador alto solo en puentes o capas ultra rápidas." },
-        { name: "ASA", ref: "Bambu ASA, Sunlu ASA", tags: ['water', 'heat', 'mech'], machine: "Cerrada", desc: "Ideal para exterior. Resiste UV, lluvia y calor.", hot: "260°C", bed: "105°C", nozzle: "Normal", warn: "Obligatorio: Máquina Cerrada. Vapores fuertes y riesgo de warping." },
-        { name: "ABS", ref: "Sunlu ABS, Bambu ABS", tags: ['heat', 'mech'], machine: "Cerrada", desc: "Material industrial clásico. Gran resistencia térmica.", hot: "250°C", bed: "100°C", nozzle: "Normal", warn: "Obligatorio: Máquina Cerrada para control térmico y evitar grietas." },
-        { name: "TPU 95A / 98A", ref: "Sunlu TPU, Overture", tags: ['flex', 'easy'], shore: "95A", flex: 40, color: "#3b82f6", machine: "Abierta", desc: "Flexible técnico fácil de imprimir. Muy duradero.", hot: "235°C", bed: "45°C", nozzle: "Normal", warn: null },
-        { name: "TPU 70A", ref: "Recreus Filaflex 70A", tags: ['flex'], shore: "70A", flex: 95, color: "#ec4899", machine: "Abierta", desc: "Ultra flexible, tacto silicona. Para mucho estiramiento.", hot: "220°C", bed: "35°C", nozzle: "Normal", warn: "Imprimir muy lento (15mm/s) para evitar atascos." },
-        { name: "FIBRA DE CARBONO", ref: "Bambu PA-CF, PETG-CF", tags: ['mech', 'heat'], machine: "Cerrada", desc: "Máxima rigidez y ligereza. Acabado mate industrial.", hot: "280°C", bed: "95°C", nozzle: "Endurecida", warn: "Obligatorio: Máquina Cerrada y Boquilla de Acero Endurecido." },
-        { name: "PLA MADERA", ref: "Sunlu Wood, Smartfil", tags: ['look'], machine: "Abierta", desc: "Fibras de madera real. Se puede lijar y barnizar.", hot: "200°C", bed: "60°C", nozzle: "Especial (>0.6)", warn: "Usar boquilla de 0.6mm para evitar que las fibras la taponen." },
-        { name: "PLA SILK / DUAL", ref: "Sunlu Silk, Bambu Silk", tags: ['look', 'easy'], machine: "Abierta", desc: "Brillo metálico intenso. Oculta muy bien las capas.", hot: "215°C", bed: "60°C", nozzle: "Normal", warn: null },
-        { name: "PLA GLITTER", ref: "Bambu Sparkle, Sunlu Twinkling", tags: ['look', 'easy'], machine: "Abierta", desc: "Efecto purpurina estrellada. Estética impecable.", hot: "215°C", bed: "60°C", nozzle: "Normal", warn: null }
+        { name: "PLA Rápido (High Speed)", lvl: 1, uv: 2, water: 2, mech: 2, heat: 2, flex: 0, type: "Abierta", desc: "Optimizado para altas velocidades (>250mm/s). Fluidez extrema y enfriamiento rápido.", set: ["210-230°C", "50-60°C", "Estándar", "Abierta"] },
+        { name: "PLA+", lvl: 1, uv: 3, water: 3, mech: 4, heat: 3, flex: 1, type: "Abierta", desc: "Mejorado con aditivos. Más resistente que el PLA estándar y con mejor adhesión de capas.", set: ["205-225°C", "60°C", "Estándar", "Abierta"] },
+        { name: "ASA", lvl: 3, uv: 10, water: 8, mech: 10, heat: 9, flex: 0, type: "Cerrada", desc: "Rey del exterior y el mecanizado. Soporta lijado y no amarillea con el sol.", set: ["255-270°C", "100-110°C", "Estándar", "Cerrada"] },
+        { name: "ABS", lvl: 3, uv: 2, water: 7, mech: 10, heat: 9, flex: 0, type: "Cerrada", desc: "Grado industrial. El mejor para pulido químico con acetona y roscas mecánicas.", set: ["240-255°C", "100°C", "Estándar", "Cerrada"] },
+        { name: "PETG", lvl: 1, uv: 7, water: 10, mech: 4, heat: 6, flex: 2, type: "Abierta", desc: "Impermeable y resistente a químicos. El estándar para piezas de jardín.", set: ["230-250°C", "70-80°C", "Estándar", "Abierta"] },
+        { name: "PA-CF (Nylon)", lvl: 3, uv: 8, water: 4, mech: 9, heat: 10, flex: 1, type: "Cerrada", desc: "Fibra de carbono. Máxima rigidez y resistencia térmica profesional.", set: ["280-300°C", "100°C", "Boquilla Acero", "Cerrada"] },
+        { name: "TPU 95A", lvl: 2, uv: 7, water: 9, mech: 1, heat: 5, flex: 8, type: "Abierta", desc: "Flexible estándar. Similar a una suela de zapato. Fácil de imprimir.", set: ["225-240°C", "50°C", "Directo", "Abierta"] },
+        { name: "TPU 85A (Soft)", lvl: 3, uv: 7, water: 9, mech: 1, heat: 4, flex: 10, type: "Abierta", desc: "Muy flexible y elástico. Requiere control preciso y baja velocidad.", set: ["220-235°C", "40°C", "Directo", "Abierta"] },
+        { name: "PETG-CF", lvl: 2, uv: 7, water: 9, mech: 7, heat: 7, flex: 0, type: "Abierta", desc: "PETG con carbono. Acabado mate industrial y alta estabilidad dimensional.", set: ["240-260°C", "80°C", "Boquilla Acero", "Abierta"] },
+        { name: "PLA", lvl: 1, uv: 2, water: 2, mech: 3, heat: 2, flex: 0, type: "Abierta", desc: "Uso general decorativo. Gran detalle pero nula resistencia al calor.", set: ["200-215°C", "50-60°C", "Estándar", "Abierta"] }
     ];
 
-    let activeTags = ['easy']; 
-    let selectedMachine = 'Abierta';
+    let fl = []; let pr = 'Abierta';
 
-    function setPr(type) {
-        selectedMachine = type;
-        document.getElementById('m1').classList.toggle('active', type === 'Abierta');
-        document.getElementById('m2').classList.toggle('active', type === 'Cerrada');
-        document.getElementById('m3').classList.toggle('active', type === 'Indistinto');
+    function toggle(el, k) {
+        el.classList.toggle('active');
+        fl.includes(k) ? fl = fl.filter(x => x !== k) : fl.push(k);
         render();
     }
 
-    function toggle(el, tag) {
-        el.classList.toggle('active');
-        activeTags.includes(tag) ? activeTags = activeTags.filter(t => t !== tag) : activeTags.push(tag);
+    function setPr(t) {
+        pr = t;
+        document.getElementById('b1').classList.toggle('active', t === 'Abierta');
+        document.getElementById('b2').classList.toggle('active', t === 'Cerrada');
         render();
     }
 
     function render() {
-        const r = document.getElementById('results');
-        r.innerHTML = '';
-        if (activeTags.length === 0) return;
+        const r = document.getElementById('res'); r.innerHTML = '';
+        let list = db.map(m => {
+            let s = 0;
+            fl.forEach(f => {
+                if (f === 'easy') s += (m.lvl === 1 ? 35 : (m.lvl === 2 ? 10 : -25));
+                else { 
+                    s += m[f] * 12; 
+                    if (m[f] < 4) s -= 75; 
+                }
+            });
+            if (pr === 'Abierta' && m.type === 'Cerrada') s -= 120;
+            return { ...m, s };
+        });
 
-        let scored = db.map(m => {
-            let tagMatch = 0;
-            activeTags.forEach(t => { if (m.tags.includes(t)) tagMatch++; });
-            let machineScore = (selectedMachine === 'Abierta' && m.machine === 'Cerrada') ? -10000 : 0;
-            if (selectedMachine === m.machine) machineScore = 2000;
-            return { ...m, tagMatch, finalScore: (tagMatch * 1000) + machineScore };
-        }).filter(m => m.tagMatch > 0).sort((a, b) => b.finalScore - a.finalScore);
-
-        scored.forEach((m, index) => {
-            const isRisky = (selectedMachine === 'Abierta' && m.machine === 'Cerrada');
+        list.sort((a,b) => b.s - a.s).forEach((m, i) => {
+            if (fl.length > 0 && m.s < -10) return;
+            const risky = pr === 'Abierta' && m.type === 'Cerrada';
             r.innerHTML += `
-                <div class="card ${isRisky ? 'risky' : ''}">
-                    ${index === 0 && !isRisky ? '<div class="best-tag">RECOMENDADO</div>' : ''}
-                    <span class="brand-ref">Ref: ${m.ref}</span>
+                <div class="card ${risky ? 'risky' : ''}">
+                    ${i === 0 && fl.length > 0 ? '<span class="top-tag">RECOMENDADO</span>' : ''}
                     <h2 class="title">${m.name}</h2>
-                    <p class="desc-text">${m.desc}</p>
-                    ${m.shore ? `
-                        <div class="flex-zone">
-                            <div style="display:flex;justify-content:space-between;font-size:0.75rem;font-weight:800">
-                                <span>SHORE ${m.shore}</span>
-                                <span>${m.flex}% FLEXIBILIDAD</span>
-                            </div>
-                            <div class="flex-bar"><div class="flex-fill" style="width:${m.flex}%; background:${m.color}"></div></div>
-                        </div>
-                    ` : ''}
+                    <span class="diff d${m.lvl}">Dificultad: ${m.lvl === 1 ? 'Fácil' : m.lvl === 2 ? 'Media' : 'Alta'}</span>
+                    <p class="desc">${risky ? '⚠️ <b>CUIDADO:</b> Requiere impresora cerrada.' : m.desc}</p>
                     <div class="params">
-                        <div class="p-item"><div class="p-label">Hotend</div><div class="p-val">${m.hot}</div></div>
-                        <div class="p-item"><div class="p-label">Cama</div><div class="p-val">${m.bed}</div></div>
-                        <div class="p-item"><div class="p-label">Boquilla</div><div class="p-val">${m.nozzle}</div></div>
-                        <div class="p-item"><div class="p-label">Impresora</div><div class="p-val">${m.machine === 'Cerrada' ? 'Máquina Cerrada' : 'Abierta'}</div></div>
+                        <span class="params-t">Ficha Técnica</span>
+                        <div class="p-list">
+                            <div class="p-item"><span class="p-label">Hotend</span><span class="p-val">${m.set[0]}</span></div>
+                            <div class="p-item"><span class="p-label">Cama</span><span class="p-val">${m.set[1]}</span></div>
+                            <div class="p-item"><span class="p-label">Hardware</span><span class="p-val">${m.set[2]}</span></div>
+                            <div class="p-item"><span class="p-label">Tipo Impresora</span><span class="p-val">${m.type}</span></div>
+                        </div>
                     </div>
-                    ${m.warn ? `<div class="warn">⚠️ ${m.warn}</div>` : ''}
                 </div>`;
         });
     }
