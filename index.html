@@ -84,7 +84,7 @@
     <div class="grid">
         <div id="btn-easy" class="btn active" onclick="toggle(this, 'easy')">✨ Fácil</div>
         <div class="btn" onclick="toggle(this, 'water')">💧 Agua/UV</div>
-        <div class="btn" onclick="toggle(this, 'mech')">🛠️ Mecánica</div>
+        <div class="btn" onclick="toggle(this, 'mech')">🛠️ Mecanizar</div>
         <div class="btn" onclick="toggle(this, 'flex')">➰ Flexible</div>
         <div class="btn" onclick="toggle(this, 'heat')">🔥 Calor</div>
         <div class="btn" onclick="toggle(this, 'look')">🎨 Estético</div>
@@ -99,8 +99,8 @@
         { name: "PLA+", ref: "Sunlu PLA+, Esun PLA+, Elegoo", tags: ['easy', 'mech'], machine: "Abierta", desc: "Mejorado con aditivos para mayor tenacidad que el PLA normal. Menos quebradizo.", hot: "215°C", bed: "60°C", nozzle: "Normal", warn: "Ideal para piezas funcionales que necesitan un extra de dureza." },
         { name: "PLA HS (High Speed)", ref: "Bambu PLA HF, Sunlu HS, Elegoo Rapid", tags: ['easy'], machine: "Abierta", desc: "Diseñado para fundirse y enfriarse rápido. Mantiene precisión a altas velocidades.", hot: "220°C", bed: "60°C", nozzle: "Normal", warn: "Asegúrate de que tu extrusor soporte el flujo necesario." },
         { name: "PLA 870 / Tough", ref: "Sakata 870, Bambu Tough", tags: ['mech', 'easy'], machine: "Abierta", desc: "Resistencia industrial. Se puede lijar y taladrar con facilidad.", hot: "225°C", bed: "60°C", nozzle: "Normal", warn: "Requiere recocido (Annealing) para máxima tenacidad." },
-        { name: "PETG Estándar", ref: "Sunlu, Elegoo, Real", tags: ['water', 'easy'], machine: "Abierta", desc: "Resistente a humedad y químicos. Ideal para piezas duraderas.", hot: "240°C", bed: "75°C", nozzle: "Normal", warn: "Ventilación baja (20-40%) para asegurar la unión entre capas." },
-        { name: "PETG HS (High Speed)", ref: "Bambu HF, Sunlu HS, Elegoo Rapid", tags: ['water', 'easy'], machine: "Abierta", desc: "Optimizado para velocidad. Menos hilos en máquinas rápidas.", hot: "250°C", bed: "80°C", nozzle: "Normal", warn: "Ventilador alto solo en puentes o capas rápidas." },
+        { name: "PETG Estándar", ref: "Sunlu, Elegoo, Real", tags: ['water', 'easy'], machine: "Abierta", desc: "Resistente a humedad y químicos. Ideal para piezas duraderas.", hot: "240°C", bed: "75°C", nozzle: "Normal", warn: "Ventilación dinámica: Mantén el ventilador bajo (20-40%) para asegurar la unión entre capas." },
+        { name: "PETG HS (High Speed)", ref: "Bambu HF, Sunlu HS, Elegoo Rapid", tags: ['water', 'easy'], machine: "Abierta", desc: "Optimizado para velocidad. Menos hilos en máquinas rápidas.", hot: "250°C", bed: "80°C", nozzle: "Normal", warn: "Ajuste dinámico: Ventilador alto solo en puentes o si la capa es rápida." },
         { name: "ASA", ref: "Bambu ASA, Sunlu, Fiberlogy", tags: ['water', 'heat', 'mech'], machine: "Cerrada", desc: "El mejor para exterior. Resiste UV y calor hasta 95°C.", hot: "260°C", bed: "105°C", nozzle: "Normal", warn: "Obligatorio: Máquina Cerrada para evitar el warping." },
         { name: "ABS", ref: "Bambu ABS, Sunlu", tags: ['heat', 'mech'], machine: "Cerrada", desc: "Material industrial clásico. Gran resistencia térmica.", hot: "255°C", bed: "100°C", nozzle: "Normal", warn: "Obligatorio: Máquina Cerrada para evitar grietas." },
         { name: "TPU 95A / 98A", ref: "Bambu TPU, Sunlu, Overture", tags: ['flex', 'easy'], shore: "95A", flex: 40, color: "#3b82f6", machine: "Abierta", desc: "Flexible todoterreno. El más fácil de imprimir de su clase.", hot: "235°C", bed: "45°C", nozzle: "Normal", warn: null },
