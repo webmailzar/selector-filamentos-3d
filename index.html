@@ -82,8 +82,8 @@
 
     <div class="grid">
         <div id="btn-easy" class="btn active" onclick="toggle(this, 'easy')">✨ Fácil</div>
-        <div class="btn" onclick="toggle(this, 'water')">💧 Agua/UV</div>
-        <div class="btn" onclick="toggle(this, 'mech')">🛠️ Mecánica</div>
+        <div class="btn" onclick="toggle(this, 'water')">💧 Exterior/Humedad</div>
+        <div class="btn" onclick="toggle(this, 'mech')">🛠️ Mecanizable</div>
         <div class="btn" onclick="toggle(this, 'flex')">➰ Flexible</div>
         <div class="btn" onclick="toggle(this, 'heat')">🔥 Calor</div>
         <div class="btn" onclick="toggle(this, 'look')">🎨 Estético</div>
@@ -94,21 +94,21 @@
 
 <script>
     const db = [
-        { name: "PLA Estándar", ref: "Bambu Basic, Sunlu, Elegoo", tags: ['easy'], machine: "Abierta", desc: "El material universal. Perfecto para decoración y piezas que no sufran calor ni esfuerzos.", hot: "210°C", bed: "60°C", nozzle: "Normal", warn: null },
-        { name: "PLA+", ref: "Sunlu PLA+, Esun PLA+, Elegoo", tags: ['easy', 'mech'], machine: "Abierta", desc: "Mejorado con aditivos para mayor tenacidad que el PLA normal.", hot: "215°C", bed: "60°C", nozzle: "Normal", warn: "Ideal para piezas funcionales que necesitan un extra de dureza." },
-        { name: "PLA HS (High Speed)", ref: "Bambu PLA HF, Sunlu HS, Elegoo Rapid", tags: ['easy'], machine: "Abierta", desc: "Diseñado para fundirse y enfriarse rápido. Mantiene precisión a altas velocidades.", hot: "220°C", bed: "60°C", nozzle: "Normal", warn: "Asegúrate de que tu extrusor soporte el flujo necesario." },
-        { name: "PLA 870 / Tough", ref: "Sakata 870, Bambu Tough", tags: ['mech', 'easy'], machine: "Abierta", desc: "Resistencia industrial. Se puede lijar y taladrar con facilidad.", hot: "225°C", bed: "60°C", nozzle: "Normal", warn: "Requiere recocido (Annealing) para máxima tenacidad." },
-        { name: "PETG Estándar", ref: "Sunlu, Elegoo, Real", tags: ['water', 'easy'], machine: "Abierta", desc: "Resistente a humedad y químicos. Ideal para piezas duraderas.", hot: "240°C", bed: "75°C", nozzle: "Normal", warn: "Ventilación baja (20-40%) para asegurar la unión entre capas." },
-        { name: "PETG HS (High Speed)", ref: "Bambu HF, Sunlu HS, Elegoo Rapid", tags: ['water', 'easy'], machine: "Abierta", desc: "Optimizado para velocidad. Menos hilos en máquinas rápidas.", hot: "250°C", bed: "80°C", nozzle: "Normal", warn: "Ventilador alto solo en puentes o capas rápidas." },
-        { name: "ASA", ref: "Bambu ASA, Sunlu, Fiberlogy", tags: ['water', 'heat', 'mech'], machine: "Cerrada", desc: "El mejor para exterior. Resiste UV y calor hasta 95°C.", hot: "260°C", bed: "105°C", nozzle: "Normal", warn: "Obligatorio: Máquina Cerrada para evitar el warping." },
-        { name: "ABS", ref: "Bambu ABS, Sunlu", tags: ['heat', 'mech'], machine: "Cerrada", desc: "Material industrial clásico. Gran resistencia térmica.", hot: "255°C", bed: "100°C", nozzle: "Normal", warn: "Obligatorio: Máquina Cerrada para evitar grietas." },
-        { name: "TPU 95A / 98A", ref: "Bambu TPU, Sunlu, Overture", tags: ['flex', 'easy'], shore: "95A", flex: 40, color: "#3b82f6", machine: "Abierta", desc: "Flexible todoterreno. El más fácil de imprimir de su clase.", hot: "235°C", bed: "45°C", nozzle: "Normal", warn: null },
-        { name: "TPU 82A", ref: "NinjaTek Cheetah, Recreus", tags: ['flex'], shore: "82A", flex: 70, color: "#8b5cf6", machine: "Abierta", desc: "Dureza intermedia. Más elástico pero manejable.", hot: "230°C", bed: "40°C", nozzle: "Normal", warn: "Controla las retracciones para evitar hilos." },
-        { name: "TPU 70A", ref: "Recreus Filaflex 70A", tags: ['flex'], shore: "70A", flex: 95, color: "#ec4899", machine: "Abierta", desc: "Extremadamente elástico. Tacto suave.", hot: "220°C", bed: "35°C", nozzle: "Normal", warn: "Imprimir muy lento y sin retracciones agresivas." },
-        { name: "FIBRA DE CARBONO", ref: "Bambu PA-CF, PETG-CF", tags: ['mech', 'heat'], machine: "Cerrada", desc: "Máxima rigidez estructural. Acabado mate industrial.", hot: "280°C", bed: "95°C", nozzle: "Endurecida", warn: "Obligatorio: Máquina Cerrada y Boquilla de Acero Endurecido." },
-        { name: "PLA MADERA", ref: "Sunlu Wood, Smartfil", tags: ['look'], machine: "Abierta", desc: "Contiene fibras de madera real. Se puede lijar y barnizar.", hot: "205°C", bed: "60°C", nozzle: "Especial (>0.6)", warn: "Usar boquilla de 0.6mm para evitar atascos." },
-        { name: "PLA SILK / DUAL", ref: "Sunlu Silk, Bambu Silk", tags: ['look', 'easy'], machine: "Abierta", desc: "Acabado brillante seda muy estético.", hot: "215°C", bed: "60°C", nozzle: "Normal", warn: "Cuidado: Las capas pegan menos que en PLA normal." },
-        { name: "PLA GLITTER", ref: "Bambu Sparkle, Sunlu", tags: ['look', 'easy'], machine: "Abierta", desc: "Efecto purpurina. Camufla fallos de capa.", hot: "215°C", bed: "60°C", nozzle: "Normal", warn: null }
+        { name: "PLA Estándar", ref: "Bambu Basic, Sunlu, Elegoo", tags: ['easy'], machine: "Abierta", desc: "El material universal. Perfecto para decoración y piezas que no sufran calor.", hot: "210°C", bed: "60°C", nozzle: "Normal", warn: null },
+        { name: "PLA+", ref: "Sunlu PLA+, Esun PLA+, Elegoo", tags: ['easy', 'mech'], machine: "Abierta", desc: "Mejorado para mayor tenacidad. Menos quebradizo que el PLA normal.", hot: "215°C", bed: "60°C", nozzle: "Normal", warn: "Excelente para prototipos funcionales." },
+        { name: "PLA HS (High Speed)", ref: "Bambu PLA HF, Sunlu HS", tags: ['easy'], machine: "Abierta", desc: "Optimizado para altas velocidades de flujo.", hot: "220°C", bed: "60°C", nozzle: "Normal", warn: null },
+        { name: "PLA 870 / Tough", ref: "Sakata 870, Bambu Tough", tags: ['mech', 'easy'], machine: "Abierta", desc: "Resistencia industrial. Gran capacidad de mecanizado post-impresión.", hot: "225°C", bed: "60°C", nozzle: "Normal", warn: "Requiere recocido para máxima resistencia." },
+        { name: "PETG Estándar", ref: "Sunlu, Elegoo", tags: ['water', 'easy', 'mech'], machine: "Abierta", desc: "Resistente a químicos y humedad. Muy bueno para piezas que necesiten ser taladradas o lijadas.", hot: "240°C", bed: "75°C", nozzle: "Normal", warn: "Ventilación baja (20-40%) para evitar fragilidad." },
+        { name: "PETG HS (High Speed)", ref: "Bambu HF, Sunlu HS", tags: ['water', 'easy', 'mech'], machine: "Abierta", desc: "La versatilidad del PETG optimizada para máquinas rápidas.", hot: "250°C", bed: "80°C", nozzle: "Normal", warn: null },
+        { name: "ASA", ref: "Bambu ASA, Sunlu, Fiberlogy", tags: ['water', 'heat', 'mech'], machine: "Cerrada", desc: "El rey del exterior. Máxima resistencia UV y térmica (95°C).", hot: "260°C", bed: "105°C", nozzle: "Normal", warn: "Obligatorio: Máquina Cerrada para evitar warping." },
+        { name: "ABS", ref: "Bambu ABS, Sunlu", tags: ['heat', 'mech'], machine: "Cerrada", desc: "Resistencia térmica industrial. Nota: Se degrada con luz solar directa (UV).", hot: "255°C", bed: "100°C", nozzle: "Normal", warn: "Obligatorio: Máquina Cerrada." },
+        { name: "TPU 95A / 98A", ref: "Bambu TPU, Overture", tags: ['flex', 'easy'], shore: "95A", flex: 40, color: "#3b82f6", machine: "Abierta", desc: "Flexible resistente. El más fácil de imprimir.", hot: "235°C", bed: "45°C", nozzle: "Normal", warn: null },
+        { name: "TPU 82A", ref: "NinjaTek, Recreus", tags: ['flex'], shore: "82A", flex: 70, color: "#8b5cf6", machine: "Abierta", desc: "Dureza intermedia. Muy elástico.", hot: "230°C", bed: "40°C", nozzle: "Normal", warn: null },
+        { name: "TPU 70A", ref: "Filaflex 70A", tags: ['flex'], shore: "70A", flex: 95, color: "#ec4899", machine: "Abierta", desc: "Máxima elasticidad. Tacto gomoso.", hot: "220°C", bed: "35°C", nozzle: "Normal", warn: "Imprimir muy lento." },
+        { name: "FIBRA DE CARBONO", ref: "Bambu PA-CF, PETG-CF", tags: ['mech', 'heat'], machine: "Cerrada", desc: "Máxima rigidez. Acabado profesional mate.", hot: "280°C", bed: "95°C", nozzle: "Endurecida", warn: "Requiere boquilla de acero endurecido." },
+        { name: "PLA MADERA", ref: "Sunlu Wood", tags: ['look'], machine: "Abierta", desc: "Contiene fibras de madera. Se puede lijar y barnizar.", hot: "205°C", bed: "60°C", nozzle: "Especial (>0.6)", warn: "Boquilla de 0.6mm recomendada." },
+        { name: "PLA SILK", ref: "Bambu Silk, Sunlu", tags: ['look', 'easy'], machine: "Abierta", desc: "Acabado brillante estético.", hot: "215°C", bed: "60°C", nozzle: "Normal", warn: null },
+        { name: "PLA GLITTER", ref: "Bambu Sparkle", tags: ['look', 'easy'], machine: "Abierta", desc: "Efecto purpurina.", hot: "215°C", bed: "60°C", nozzle: "Normal", warn: null }
     ];
 
     let activeTags = ['easy']; 
@@ -132,20 +132,18 @@
         const r = document.getElementById('results');
         r.innerHTML = '';
         if (activeTags.length === 0) {
-            r.innerHTML = '<p style="text-align:center; color:var(--m); padding:50px; font-weight:600;">Selecciona una categoría arriba...</p>';
+            r.innerHTML = '<p style="text-align:center; color:var(--m); padding:50px; font-weight:600;">Selecciona una categoría...</p>';
             return;
         }
 
         let scored = db.map(m => {
             let tagMatch = 0;
             activeTags.forEach(t => { if (m.tags.includes(t)) tagMatch++; });
-            
             let machineScore = 0;
             if (selectedMachine !== 'Indistinto') {
                 if (selectedMachine === 'Abierta' && m.machine === 'Cerrada') machineScore = -10000;
                 if (selectedMachine === m.machine) machineScore = 2000;
             }
-
             return { ...m, tagMatch, finalScore: (tagMatch * 1000) + machineScore };
         }).filter(m => m.tagMatch > 0).sort((a, b) => b.finalScore - a.finalScore);
 
@@ -156,31 +154,22 @@
                     ${index === 0 && !isRisky ? '<div class="best-tag">RECOMENDADO</div>' : ''}
                     <span class="brand-ref">Referencias: ${m.ref}</span>
                     <h2 class="title">${m.name}</h2>
-                    
                     <p class="desc-text">${m.desc}</p>
-
                     ${m.shore ? `
                         <div class="flex-zone">
                             <div style="display:flex;justify-content:space-between;font-size:0.85rem;font-weight:900">
                                 <span>Shore ${m.shore}</span>
-                                <span>${m.flex}% Flexibilidad</span>
+                                <span>${m.flex}% Flex</span>
                             </div>
                             <div class="flex-bar"><div class="flex-fill" style="width:${m.flex}%; background:${m.color}"></div></div>
                         </div>
                     ` : ''}
-
                     <div class="params">
                         <div class="p-item"><div class="p-label">Hotend</div><div class="p-val">${m.hot}</div></div>
                         <div class="p-item"><div class="p-label">Cama</div><div class="p-val">${m.bed}</div></div>
-                        <div class="p-item"><div class="p-label">Boquilla</div><div class="p-val" style="color:${m.nozzle !== 'Normal' ? '#ef4444' : 'inherit'}">${m.nozzle}</div></div>
+                        <div class="p-item"><div class="p-label">Boquilla</div><div class="p-val">${m.nozzle}</div></div>
                         <div class="p-item"><div class="p-label">Impresora</div><div class="p-val">${m.machine === 'Cerrada' ? 'Máquina Cerrada' : 'Abierta'}</div></div>
                     </div>
-
-                    ${m.machine === 'Cerrada' && !isRisky ? `
-                        <div class="warn warn-blue">
-                            ℹ️ NOTA: Requiere Máquina Cerrada para garantizar el éxito.
-                        </div>
-                    ` : ''}
                     ${m.warn ? `<div class="warn">⚠️ CONSEJO: ${m.warn}</div>` : ''}
                 </div>`;
         });
