@@ -10,9 +10,11 @@
         body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--t); margin: 0; padding: 15px; }
         .container { max-width: 480px; margin: auto; }
         
-        /* CABECERA CON LOGO */
+        /* CABECERA */
         header { text-align: center; margin: 20px 0 30px 0; }
-        .logo { max-width: 180px; height: auto; margin-bottom: 15px; display: block; margin-left: auto; margin-right: auto; }
+        /* El logo ahora es un SVG integrado para que no falle */
+        .logo-box { margin-bottom: 10px; }
+        .logo-box img { max-width: 200px; height: auto; }
         h1 { font-size: 1.7rem; font-weight: 900; margin: 0; color: #1e293b; letter-spacing: -0.02em; }
 
         /* FILTROS */
@@ -20,23 +22,23 @@
         .btn { background: var(--c); border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 14px; text-align: center; cursor: pointer; font-size: 0.75rem; font-weight: 800; transition: 0.2s; color: #1e293b; }
         .btn.active { border-color: var(--p); background: #eff6ff; color: var(--p); box-shadow: 0 4px 10px rgba(30, 58, 138, 0.1); }
 
-        /* SELECTOR HARDWARE TRIPLE */
+        /* SELECTOR HARDWARE */
         .hw-box { background: white; border: 1px solid #e2e8f0; border-radius: 20px; padding: 20px; margin-bottom: 30px; text-align: center; }
-        .p-label-top { font-size: 0.7rem; color: var(--m); font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 12px; }
+        .p-label-top { font-size: 0.7rem; color: var(--m); font-weight: 800; text-transform: uppercase; display: block; margin-bottom: 12px; }
         .switch { display: flex; background: #f1f5f9; padding: 5px; border-radius: 12px; }
         .sw-btn { flex: 1; padding: 12px; font-size: 0.75rem; font-weight: 800; border-radius: 9px; cursor: pointer; color: var(--m); border: none; background: transparent; }
         .sw-btn.active { background: white; color: var(--p); box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
 
         /* TARJETAS */
-        .card { background: white; border-radius: 24px; padding: 25px; margin-bottom: 20px; border: 1px solid #e2e8f0; position: relative; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); }
-        .card.low-match { opacity: 0.5; filter: grayscale(1); }
+        .card { background: white; border-radius: 24px; padding: 25px; margin-bottom: 20px; border: 1px solid #e2e8f0; position: relative; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+        .card.low-match { opacity: 0.4; filter: grayscale(1); }
         .title { font-size: 1.8rem; font-weight: 900; margin: 0; color: var(--p); }
         .diff { font-size: 0.6rem; font-weight: 800; padding: 4px 10px; border-radius: 6px; text-transform: uppercase; margin-top: 10px; display: inline-block; }
         .d1 { background: #dcfce7; color: #166534; } .d2 { background: #fef9c3; color: #854d0e; } .d3 { background: #fee2e2; color: #991b1b; }
         
         .desc { font-size: 0.95rem; color: #475569; margin: 15px 0; line-height: 1.5; }
 
-        /* TABLA DE PARÁMETROS (UNA COLUMNA) */
+        /* PARÁMETROS UNA COLUMNA */
         .params { background: #f8fafc; border-radius: 16px; padding: 18px; border: 1px solid #e2e8f0; }
         .p-list { display: flex; flex-direction: column; gap: 10px; }
         .p-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f1f5f9; padding-bottom: 6px; }
@@ -51,7 +53,10 @@
 
 <div class="container">
     <header>
-        <img src="https://3dexpert.es/wp-content/uploads/2023/11/Logo-3D-Expert-horizontal.png" class="logo" alt="3D Expert Logo">
+        <div class="logo-box">
+            <img src="https://3dexpert.es/wp-content/uploads/2023/11/Logo-3D-Expert-horizontal.png" alt="3D Expert" onerror="this.style.display='none'; document.getElementById('alt-logo').style.display='block';">
+            <div id="alt-logo" style="display:none; font-size: 2rem; font-weight: 900; color: #1e3a8a;">3D <span style="color:#f59e0b">EXPERT</span></div>
+        </div>
         <h1>Selector de Filamentos</h1>
     </header>
 
@@ -65,7 +70,7 @@
     </div>
 
     <div class="hw-box">
-        <span class="p-label-top">Tipo de Impresora</span>
+        <span class="p-label-top">Hardware de tu Impresora</span>
         <div class="switch">
             <button id="b-abierta" class="sw-btn active" onclick="setHW('Abierta')">Abierta</button>
             <button id="b-cerrada" class="sw-btn" onclick="setHW('Cerrada')">Cerrada</button>
@@ -78,16 +83,16 @@
 
 <script>
     const db = [
-        { name: "PLA Rápido", easy: 10, uv: 2, water: 3, mech: 3, heat: 2, flex: 0, type: "Abierta", diff: 1, desc: "Optimizado para alta velocidad. Fluidez extrema y enfriamiento instantáneo.", nozzle: "210-230°C", bed: "55°C", tools: "Estándar" },
-        { name: "PLA+", easy: 10, uv: 4, water: 4, mech: 5, heat: 3, flex: 1, type: "Abierta", diff: 1, desc: "Más resistente que el PLA básico. Mejor acabado superficial y dureza.", nozzle: "215°C", bed: "60°C", tools: "Estándar" },
-        { name: "ASA", easy: 2, uv: 10, water: 9, mech: 10, heat: 9, flex: 0, type: "Cerrada", diff: 3, desc: "Material de ingeniería. El rey para el sol, no amarillea y es ideal para mecanizar.", nozzle: "260°C", bed: "105°C", tools: "Estándar" },
-        { name: "ABS", easy: 1, uv: 2, water: 7, mech: 10, heat: 9, flex: 0, type: "Cerrada", diff: 3, desc: "Clásico industrial. Excelente para roscas y pulido químico con acetona.", nozzle: "245°C", bed: "100°C", tools: "Estándar" },
-        { name: "PETG", easy: 8, uv: 7, water: 10, mech: 4, heat: 7, flex: 2, type: "Abierta", diff: 1, desc: "Muy equilibrado. Resistente al agua, químicos y con gran adhesión de capas.", nozzle: "240°C", bed: "75°C", tools: "Estándar" },
-        { name: "PA-CF (Nylon)", easy: 1, uv: 8, water: 4, mech: 9, heat: 10, flex: 1, type: "Cerrada", diff: 3, desc: "Nylon con fibra de carbono. Rigidez extrema y alta resistencia térmica.", nozzle: "290°C", bed: "100°C", tools: "Acero Endurecido" },
-        { name: "TPU 95A", easy: 6, uv: 7, water: 9, mech: 1, heat: 5, flex: 8, type: "Abierta", diff: 2, desc: "Flexible todoterreno. Muy resistente a la abrasión y al desgaste.", nozzle: "235°C", bed: "50°C", tools: "Directo" },
-        { name: "TPU 82A", easy: 4, uv: 7, water: 9, mech: 1, heat: 4, flex: 10, type: "Abierta", diff: 3, desc: "Alta elasticidad. Para piezas que requieren gran capacidad de deformación.", nozzle: "225°C", bed: "45°C", tools: "Directo" },
-        { name: "PETG-CF", easy: 7, uv: 8, water: 9, mech: 8, heat: 8, flex: 0, type: "Abierta", diff: 2, desc: "Acabado mate industrial que disimula las capas. Mayor rigidez que el PETG.", nozzle: "250°C", bed: "80°C", tools: "Acero Endurecido" },
-        { name: "PLA Estándar", easy: 10, uv: 2, water: 2, mech: 3, heat: 2, flex: 0, type: "Abierta", diff: 1, desc: "El más sencillo. Ideal para figuras decorativas y prototipos rápidos.", nozzle: "205°C", bed: "55°C", tools: "Estándar" }
+        { name: "PLA Rápido", easy: 10, uv: 2, water: 3, mech: 3, heat: 2, flex: 0, type: "Abierta", diff: 1, desc: "Especial para alta velocidad. Fluidez extrema y enfriamiento instantáneo.", nozzle: "210-230°C", bed: "55°C", tools: "Estándar" },
+        { name: "PLA+", easy: 10, uv: 4, water: 4, mech: 5, heat: 3, flex: 1, type: "Abierta", diff: 1, desc: "Más resistente que el PLA básico. Mejor acabado y mayor dureza mecánica.", nozzle: "215°C", bed: "60°C", tools: "Estándar" },
+        { name: "ASA", easy: 2, uv: 10, water: 9, mech: 10, heat: 9, flex: 0, type: "Cerrada", diff: 3, desc: "Grado automotriz. El rey para el sol. Requiere control de temperatura ambiente.", nozzle: "260°C", bed: "105°C", tools: "Estándar" },
+        { name: "ABS", easy: 1, uv: 2, water: 7, mech: 10, heat: 9, flex: 0, type: "Cerrada", diff: 3, desc: "Industrial. Perfecto para roscas mecánicas y pulido con vapor de acetona.", nozzle: "245°C", bed: "100°C", tools: "Estándar" },
+        { name: "PETG", easy: 8, uv: 7, water: 10, mech: 4, heat: 7, flex: 2, type: "Abierta", diff: 1, desc: "Equilibrio total. Resistente al agua, químicos y con gran durabilidad.", nozzle: "240°C", bed: "75°C", tools: "Estándar" },
+        { name: "PA-CF (Nylon)", easy: 1, uv: 8, water: 4, mech: 9, heat: 10, flex: 1, type: "Cerrada", diff: 3, desc: "Nylon con Carbono. Ultra rígido para piezas estructurales de alta carga.", nozzle: "290°C", bed: "100°C", tools: "Acero Endurecido" },
+        { name: "TPU 95A", easy: 6, uv: 7, water: 9, mech: 1, heat: 5, flex: 8, type: "Abierta", diff: 2, desc: "Flexible de dureza media. Ideal para carcasas, ruedas y juntas.", nozzle: "235°C", bed: "50°C", tools: "Directo" },
+        { name: "TPU 82A", easy: 4, uv: 7, water: 9, mech: 1, heat: 4, flex: 10, type: "Abierta", diff: 3, desc: "Alta elasticidad. Para piezas que requieren máxima deformación.", nozzle: "225°C", bed: "45°C", tools: "Directo" },
+        { name: "PETG-CF", easy: 7, uv: 8, water: 9, mech: 8, heat: 8, flex: 0, type: "Abierta", diff: 2, desc: "Acabado mate industrial que disimula las capas. Mayor rigidez estructural.", nozzle: "250°C", bed: "80°C", tools: "Acero Endurecido" },
+        { name: "PLA Estándar", easy: 10, uv: 2, water: 2, mech: 3, heat: 2, flex: 0, type: "Abierta", diff: 1, desc: "El más fácil. Recomendado para prototipos visuales y figuras decorativas.", nozzle: "205°C", bed: "55°C", tools: "Estándar" }
     ];
 
     let activeF = [];
@@ -134,13 +139,13 @@
                     ${isBest ? '<span class="top-tag">RECOMENDADO</span>' : ''}
                     <h2 class="title">${m.name}</h2>
                     <span class="diff d${m.diff}">DIFICULTAD: ${m.diff==1?'BAJA':m.diff==2?'MEDIA':'ALTA'}</span>
-                    <p class="desc">${m.type === 'Cerrada' && currentHW === 'Abierta' ? '⚠️ <b>Riesgo:</b> Este filamento suele fallar en impresoras abiertas.' : m.desc}</p>
+                    <p class="desc">${m.type === 'Cerrada' && currentHW === 'Abierta' ? '⚠️ <b>Nota:</b> Este material requiere cámara cerrada.' : m.desc}</p>
                     <div class="params">
                         <div class="p-list">
                             <div class="p-item"><span class="p-label">HOTEND</span><span class="p-val">${m.nozzle}</span></div>
                             <div class="p-item"><span class="p-label">CAMA</span><span class="p-val">${m.bed}</span></div>
                             <div class="p-item"><span class="p-label">HARDWARE</span><span class="p-val">${m.tools}</span></div>
-                            <div class="p-item"><span class="p-label">TIPO IMPRESORA</span><span class="p-val">${m.type}</span></div>
+                            <div class="p-item"><span class="p-label">IMPRESORA</span><span class="p-val">${m.type}</span></div>
                         </div>
                     </div>
                 </div>`;
