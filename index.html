@@ -9,41 +9,55 @@
         :root { --p: #2563eb; --bg: #f8fafc; --c: #ffffff; --t: #0f172a; --m: #64748b; }
         body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--t); margin: 0; padding: 10px; }
         .container { max-width: 500px; margin: auto; }
-        header { text-align: center; margin: 25px 0; }
-        h1 { font-size: 1.8rem; font-weight: 900; margin: 0; color: #1e293b; letter-spacing: -0.02em; }
+        
+        /* CABECERA CON LOGO */
+        header { text-align: center; margin: 20px 0 30px 0; }
+        .logo-container { margin-bottom: 10px; }
+        .logo-container img { max-width: 140px; height: auto; }
+        h1 { font-size: 1.6rem; font-weight: 900; margin: 0; color: #1e293b; letter-spacing: -0.02em; }
 
+        /* FILTROS */
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 20px; }
         .btn { background: var(--c); border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 12px; text-align: center; cursor: pointer; font-size: 0.7rem; font-weight: 700; transition: 0.2s; }
         .btn.active { border-color: var(--p); background: #eff6ff; color: var(--p); box-shadow: 0 4px 10px rgba(37, 99, 235, 0.1); }
 
+        /* SELECTOR HARDWARE */
         .hw-box { background: white; border: 1px solid #e2e8f0; border-radius: 16px; padding: 15px; margin-bottom: 20px; text-align: center; }
+        .p-label-top { font-size: 0.65rem; color: var(--m); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
         .switch { display: flex; background: #f1f5f9; padding: 4px; border-radius: 8px; margin-top: 8px; }
         .sw-btn { flex: 1; padding: 8px; font-size: 0.7rem; font-weight: 800; border-radius: 6px; cursor: pointer; color: var(--m); }
         .sw-btn.active { background: white; color: var(--p); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
 
-        .card { background: white; border-radius: 20px; padding: 20px; margin-bottom: 15px; border: 1px solid #e2e8f0; position: relative; }
+        /* TARJETAS */
+        .card { background: white; border-radius: 20px; padding: 20px; margin-bottom: 15px; border: 1px solid #e2e8f0; position: relative; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
         .card.risky { opacity: 0.4; filter: grayscale(1); border-style: dashed; }
         .title { font-size: 1.4rem; font-weight: 900; margin: 0; color: var(--p); }
         .diff { font-size: 0.55rem; font-weight: 800; padding: 3px 8px; border-radius: 6px; text-transform: uppercase; margin-top: 6px; display: inline-block; }
         .d1 { background: #dcfce7; color: #166534; } .d2 { background: #fef9c3; color: #854d0e; } .d3 { background: #fee2e2; color: #991b1b; }
         
-        .desc { font-size: 0.8rem; color: #475569; margin: 12px 0; line-height: 1.4; }
+        .desc { font-size: 0.85rem; color: #475569; margin: 12px 0; line-height: 1.4; }
 
+        /* PARÁMETROS LIMPIOS PARA MÓVIL */
         .params { background: #f8fafc; border-radius: 12px; padding: 15px; border: 1px solid #e2e8f0; }
         .params-t { font-size: 0.6rem; color: #f59e0b; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; display: block; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px; }
         
-        .p-list { display: flex; flex-direction: column; gap: 6px; }
-        .p-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f1f5f9; padding-bottom: 2px; }
-        .p-label { font-size: 0.6rem; color: var(--m); font-weight: 700; text-transform: uppercase; }
-        .p-val { font-size: 0.75rem; font-weight: 700; text-align: right; }
+        .p-list { display: flex; flex-direction: column; gap: 8px; }
+        .p-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f1f5f9; padding-bottom: 4px; }
+        .p-label { font-size: 0.65rem; color: var(--m); font-weight: 700; text-transform: uppercase; }
+        .p-val { font-size: 0.8rem; font-weight: 700; text-align: right; }
 
-        .top-tag { position: absolute; top: 15px; right: 15px; background: #f59e0b; color: white; font-size: 0.5rem; padding: 4px 8px; border-radius: 100px; font-weight: 800; }
+        .top-tag { position: absolute; top: 15px; right: 15px; background: #f59e0b; color: white; font-size: 0.55rem; padding: 4px 8px; border-radius: 100px; font-weight: 800; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <header><h1>Selector de Filamentos 3D</h1></header>
+    <header>
+        <div class="logo-container">
+            <img src="https://3dexpert.es/wp-content/uploads/2023/11/Logo-3D-Expert-horizontal.png" alt="3D Expert Logo">
+        </div>
+        <h1>Selector de Filamentos</h1>
+    </header>
 
     <div class="grid">
         <div class="btn" onclick="toggle(this, 'easy')">✨ FÁCIL</div>
@@ -55,7 +69,7 @@
     </div>
 
     <div class="hw-box">
-        <span class="p-label">Hardware de tu Impresora</span>
+        <span class="p-label-top">Tipo de Impresora</span>
         <div class="switch">
             <div id="b1" class="sw-btn active" onclick="setPr('Abierta')">Abierta</div>
             <div id="b2" class="sw-btn" onclick="setPr('Cerrada')">Cerrada</div>
@@ -67,16 +81,16 @@
 
 <script>
     const db = [
-        { name: "PLA Rápido (High Speed)", lvl: 1, uv: 2, water: 2, mech: 2, heat: 2, flex: 0, type: "Abierta", desc: "Optimizado para altas velocidades (>250mm/s). Fluidez extrema y enfriamiento rápido.", set: ["210-230°C", "50-60°C", "Estándar", "Abierta"] },
-        { name: "PLA+", lvl: 1, uv: 3, water: 3, mech: 4, heat: 3, flex: 1, type: "Abierta", desc: "Mejorado con aditivos. Más resistente que el PLA estándar y con mejor adhesión de capas.", set: ["205-225°C", "60°C", "Estándar", "Abierta"] },
-        { name: "ASA", lvl: 3, uv: 10, water: 8, mech: 10, heat: 9, flex: 0, type: "Cerrada", desc: "Rey del exterior y el mecanizado. Soporta lijado y no amarillea con el sol.", set: ["255-270°C", "100-110°C", "Estándar", "Cerrada"] },
-        { name: "ABS", lvl: 3, uv: 2, water: 7, mech: 10, heat: 9, flex: 0, type: "Cerrada", desc: "Grado industrial. El mejor para pulido químico con acetona y roscas mecánicas.", set: ["240-255°C", "100°C", "Estándar", "Cerrada"] },
-        { name: "PETG", lvl: 1, uv: 7, water: 10, mech: 4, heat: 6, flex: 2, type: "Abierta", desc: "Impermeable y resistente a químicos. El estándar para piezas de jardín.", set: ["230-250°C", "70-80°C", "Estándar", "Abierta"] },
-        { name: "PA-CF (Nylon)", lvl: 3, uv: 8, water: 4, mech: 9, heat: 10, flex: 1, type: "Cerrada", desc: "Fibra de carbono. Máxima rigidez y resistencia térmica profesional.", set: ["280-300°C", "100°C", "Boquilla Acero", "Cerrada"] },
-        { name: "TPU 95A", lvl: 2, uv: 7, water: 9, mech: 1, heat: 5, flex: 8, type: "Abierta", desc: "Flexible estándar. Similar a una suela de zapato. Fácil de imprimir.", set: ["225-240°C", "50°C", "Directo", "Abierta"] },
-        { name: "TPU 85A (Soft)", lvl: 3, uv: 7, water: 9, mech: 1, heat: 4, flex: 10, type: "Abierta", desc: "Muy flexible y elástico. Requiere control preciso y baja velocidad.", set: ["220-235°C", "40°C", "Directo", "Abierta"] },
-        { name: "PETG-CF", lvl: 2, uv: 7, water: 9, mech: 7, heat: 7, flex: 0, type: "Abierta", desc: "PETG con carbono. Acabado mate industrial y alta estabilidad dimensional.", set: ["240-260°C", "80°C", "Boquilla Acero", "Abierta"] },
-        { name: "PLA", lvl: 1, uv: 2, water: 2, mech: 3, heat: 2, flex: 0, type: "Abierta", desc: "Uso general decorativo. Gran detalle pero nula resistencia al calor.", set: ["200-215°C", "50-60°C", "Estándar", "Abierta"] }
+        { name: "PLA Rápido (High Speed)", lvl: 1, uv: 2, water: 2, mech: 2, heat: 2, flex: 0, type: "Abierta", desc: "Fluidez optimizada para impresión a alta velocidad (>250mm/s).", set: ["210-230°C", "55°C", "Estándar", "Abierta"] },
+        { name: "PLA+", lvl: 1, uv: 3, water: 3, mech: 4, heat: 3, flex: 1, type: "Abierta", desc: "Más resistente y con mejor adhesión que el PLA estándar.", set: ["210-225°C", "60°C", "Estándar", "Abierta"] },
+        { name: "ASA", lvl: 3, uv: 10, water: 8, mech: 10, heat: 9, flex: 0, type: "Cerrada", desc: "Material de ingeniería. Resistente a UV y perfecto para mecanizar.", set: ["260°C", "105°C", "Estándar", "Cerrada"] },
+        { name: "ABS", lvl: 3, uv: 2, water: 7, mech: 10, heat: 9, flex: 0, type: "Cerrada", desc: "Clásico industrial. Excelente para roscar y acabados con acetona.", set: ["245°C", "100°C", "Estándar", "Cerrada"] },
+        { name: "PETG", lvl: 1, uv: 7, water: 10, mech: 4, heat: 6, flex: 2, type: "Abierta", desc: "Excelente resistencia química e impermeabilidad.", set: ["240°C", "75°C", "Estándar", "Abierta"] },
+        { name: "PA-CF (Nylon)", lvl: 3, uv: 8, water: 4, mech: 9, heat: 10, flex: 1, type: "Cerrada", desc: "Nylon reforzado con carbono. Rigidez y calor extremo.", set: ["290°C", "100°C", "Boquilla Acero", "Cerrada"] },
+        { name: "TPU 95A", lvl: 2, uv: 7, water: 9, mech: 1, heat: 5, flex: 8, type: "Abierta", desc: "Flexible versátil para juntas y protecciones. Dureza tipo goma.", set: ["230°C", "50°C", "Directo", "Abierta"] },
+        { name: "TPU 85A", lvl: 3, uv: 7, water: 9, mech: 1, heat: 4, flex: 10, type: "Abierta", desc: "Muy elástico. Ideal para piezas que necesiten gran deformación.", set: ["225°C", "45°C", "Directo", "Abierta"] },
+        { name: "PETG-CF", lvl: 2, uv: 7, water: 9, mech: 7, heat: 7, flex: 0, type: "Abierta", desc: "Acabado mate y mayor rigidez que el PETG común.", set: ["250°C", "80°C", "Boquilla Acero", "Abierta"] },
+        { name: "PLA", lvl: 1, uv: 2, water: 2, mech: 3, heat: 2, flex: 0, type: "Abierta", desc: "Fácil de imprimir. Solo para piezas decorativas de interior.", set: ["205°C", "55°C", "Estándar", "Abierta"] }
     ];
 
     let fl = []; let pr = 'Abierta';
@@ -100,10 +114,7 @@
             let s = 0;
             fl.forEach(f => {
                 if (f === 'easy') s += (m.lvl === 1 ? 35 : (m.lvl === 2 ? 10 : -25));
-                else { 
-                    s += m[f] * 12; 
-                    if (m[f] < 4) s -= 75; 
-                }
+                else { s += m[f] * 12; if (m[f] < 4) s -= 75; }
             });
             if (pr === 'Abierta' && m.type === 'Cerrada') s -= 120;
             return { ...m, s };
@@ -117,14 +128,14 @@
                     ${i === 0 && fl.length > 0 ? '<span class="top-tag">RECOMENDADO</span>' : ''}
                     <h2 class="title">${m.name}</h2>
                     <span class="diff d${m.lvl}">Dificultad: ${m.lvl === 1 ? 'Fácil' : m.lvl === 2 ? 'Media' : 'Alta'}</span>
-                    <p class="desc">${risky ? '⚠️ <b>CUIDADO:</b> Requiere impresora cerrada.' : m.desc}</p>
+                    <p class="desc">${risky ? '⚠️ <b>AVISO:</b> Requiere impresora cerrada.' : m.desc}</p>
                     <div class="params">
                         <span class="params-t">Ficha Técnica</span>
                         <div class="p-list">
                             <div class="p-item"><span class="p-label">Hotend</span><span class="p-val">${m.set[0]}</span></div>
                             <div class="p-item"><span class="p-label">Cama</span><span class="p-val">${m.set[1]}</span></div>
                             <div class="p-item"><span class="p-label">Hardware</span><span class="p-val">${m.set[2]}</span></div>
-                            <div class="p-item"><span class="p-label">Tipo Impresora</span><span class="p-val">${m.type}</span></div>
+                            <div class="p-item"><span class="p-label">Impresora</span><span class="p-val">${m.type}</span></div>
                         </div>
                     </div>
                 </div>`;
