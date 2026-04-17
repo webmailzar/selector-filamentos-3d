@@ -11,6 +11,7 @@
         .container { max-width: 480px; margin: auto; }
         
         header { text-align: center; margin: 20px 0 30px 0; }
+        /* Logo Verde Original */
         .logo { max-width: 180px; height: auto; margin-bottom: 10px; display: inline-block; }
         h1 { font-size: 1.7rem; font-weight: 900; margin: 0; color: #1e293b; letter-spacing: -0.02em; }
 
@@ -24,10 +25,10 @@
         .sw-btn { flex: 1; padding: 12px; font-size: 0.75rem; font-weight: 800; border-radius: 9px; cursor: pointer; color: var(--m); border: none; background: transparent; }
         .sw-btn.active { background: white; color: var(--p); box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
 
-        .card { background: white; border-radius: 24px; padding: 25px; margin-bottom: 20px; border: 1px solid #e2e8f0; position: relative; }
-        .card.low-match { opacity: 0.45; filter: grayscale(1); order: 99; } /* El order:99 los manda al final */
+        .card { background: white; border-radius: 24px; padding: 25px; margin-bottom: 20px; border: 1px solid #e2e8f0; position: relative; display: flex; flex-direction: column; }
+        .card.low-match { opacity: 0.4; filter: grayscale(1); order: 99; }
         .title { font-size: 1.8rem; font-weight: 900; margin: 0; color: var(--p); }
-        .diff { font-size: 0.6rem; font-weight: 800; padding: 4px 10px; border-radius: 6px; text-transform: uppercase; margin-top: 10px; display: inline-block; }
+        .diff { font-size: 0.6rem; font-weight: 800; padding: 4px 10px; border-radius: 6px; text-transform: uppercase; margin-top: 10px; display: inline-block; width: fit-content; }
         .d1 { background: #dcfce7; color: #166534; } .d2 { background: #fef9c3; color: #854d0e; } .d3 { background: #fee2e2; color: #991b1b; }
         
         .desc { font-size: 0.95rem; color: #475569; margin: 15px 0; line-height: 1.5; }
@@ -40,14 +41,14 @@
         .p-val { font-size: 0.9rem; font-weight: 800; text-align: right; color: #1e293b; }
 
         .top-tag { position: absolute; top: 20px; right: 20px; background: var(--a); color: white; font-size: 0.6rem; padding: 5px 12px; border-radius: 100px; font-weight: 900; }
-        #results { display: flex; flex-direction: column; } /* Necesario para el order */
+        #results { display: flex; flex-direction: column; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <header>
-        <img src="https://3dexpert.es/wp-content/uploads/2023/11/Logo-3D-Expert-horizontal.png" class="logo" alt="3D Expert">
+        <img src="https://3dexpert.es/wp-content/uploads/2021/01/logo3dexpert_verde.png" class="logo" alt="3D Expert">
         <h1>Selector de Filamentos</h1>
     </header>
 
@@ -75,15 +76,15 @@
 <script>
     const db = [
         { name: "PLA Rápido", easy: 10, uv: 2, water: 3, mech: 3, heat: 2, flex: 0, type: "Abierta", diff: 1, desc: "Optimizado para alta velocidad. Fluidez extrema y enfriamiento instantáneo.", nozzle: "210-230°C", bed: "55°C", tools: "Estándar" },
-        { name: "PLA+", easy: 10, uv: 4, water: 4, mech: 5, heat: 3, flex: 1, type: "Abierta", diff: 1, desc: "Más resistente que el PLA básico. Mejor acabado y mayor dureza.", nozzle: "215°C", bed: "60°C", tools: "Estándar" },
-        { name: "ASA", easy: 2, uv: 10, water: 9, mech: 10, heat: 9, flex: 0, type: "Cerrada", diff: 3, desc: "Grado automotriz. El rey para el sol. Requiere control de temperatura ambiente.", nozzle: "260°C", bed: "105°C", tools: "Estándar" },
-        { name: "ABS", easy: 1, uv: 2, water: 7, mech: 10, heat: 9, flex: 0, type: "Cerrada", diff: 3, desc: "Industrial. Perfecto para roscas mecánicas y pulido con vapor de acetona.", nozzle: "245°C", bed: "100°C", tools: "Estándar" },
-        { name: "PETG", easy: 8, uv: 7, water: 10, mech: 4, heat: 7, flex: 2, type: "Abierta", diff: 1, desc: "Muy equilibrado. Resistente al agua, químicos y con gran durabilidad.", nozzle: "240°C", bed: "75°C", tools: "Estándar" },
-        { name: "PA-CF (Nylon)", easy: 1, uv: 8, water: 4, mech: 9, heat: 10, flex: 1, type: "Cerrada", diff: 3, desc: "Nylon con Carbono. Ultra rígido para piezas estructurales de alta carga.", nozzle: "290°C", bed: "100°C", tools: "Acero Endurecido" },
-        { name: "TPU 95A", easy: 6, uv: 7, water: 9, mech: 1, heat: 5, flex: 8, type: "Abierta", diff: 2, desc: "Flexible de dureza media. Ideal para carcasas, ruedas y juntas.", nozzle: "235°C", bed: "50°C", tools: "Directo" },
-        { name: "TPU 82A", easy: 4, uv: 7, water: 9, mech: 1, heat: 4, flex: 10, type: "Abierta", diff: 3, desc: "Alta elasticidad. Para piezas que requieren máxima deformación.", nozzle: "225°C", bed: "45°C", tools: "Directo" },
-        { name: "PETG-CF", easy: 7, uv: 8, water: 9, mech: 8, heat: 8, flex: 0, type: "Abierta", diff: 2, desc: "Acabado mate industrial que disimula las capas. Mayor rigidez estructural.", nozzle: "250°C", bed: "80°C", tools: "Acero Endurecido" },
-        { name: "PLA Estándar", easy: 10, uv: 2, water: 2, mech: 3, heat: 2, flex: 0, type: "Abierta", diff: 1, desc: "El más fácil. Recomendado para prototipos visuales y figuras decorativas.", nozzle: "205°C", bed: "55°C", tools: "Estándar" }
+        { name: "PLA+", easy: 10, uv: 4, water: 4, mech: 5, heat: 3, flex: 1, type: "Abierta", diff: 1, desc: "Más resistente que el PLA básico. Mejor acabado y mayor dureza mecánica.", nozzle: "215°C", bed: "60°C", tools: "Estándar" },
+        { name: "ASA", easy: 2, uv: 10, water: 9, mech: 10, heat: 9, flex: 0, type: "Cerrada", diff: 3, desc: "El mejor para exterior. Resistente a rayos UV y excelente para lijar.", nozzle: "260°C", bed: "105°C", tools: "Estándar" },
+        { name: "ABS", easy: 1, uv: 2, water: 7, mech: 10, heat: 9, flex: 0, type: "Cerrada", diff: 3, desc: "Industrial. Perfecto para piezas mecánicas y pulido con acetona.", nozzle: "245°C", bed: "100°C", tools: "Estándar" },
+        { name: "PETG", easy: 8, uv: 7, water: 10, mech: 4, heat: 7, flex: 2, type: "Abierta", diff: 1, desc: "Resistente al agua y químicos. Muy buena adherencia entre capas.", nozzle: "240°C", bed: "75°C", tools: "Estándar" },
+        { name: "PA-CF (Nylon)", easy: 1, uv: 8, water: 4, mech: 9, heat: 10, flex: 1, type: "Cerrada", diff: 3, desc: "Nylon reforzado. Máxima rigidez y resistencia al calor extremo.", nozzle: "290°C", bed: "100°C", tools: "Acero Endurecido" },
+        { name: "TPU 95A", easy: 6, uv: 7, water: 9, mech: 1, heat: 5, flex: 8, type: "Abierta", diff: 2, desc: "Flexible todoterreno. Resistente a impactos y desgaste por fricción.", nozzle: "235°C", bed: "50°C", tools: "Directo" },
+        { name: "TPU 82A", easy: 4, uv: 7, water: 9, mech: 1, heat: 4, flex: 10, type: "Abierta", diff: 3, desc: "Alta elasticidad. Ideal para juntas o piezas muy deformables.", nozzle: "225°C", bed: "45°C", tools: "Directo" },
+        { name: "PETG-CF", easy: 7, uv: 8, water: 9, mech: 8, heat: 8, flex: 0, type: "Abierta", diff: 2, desc: "Acabado mate que oculta las capas. Mayor rigidez que el PETG común.", nozzle: "250°C", bed: "80°C", tools: "Acero Endurecido" },
+        { name: "PLA Estándar", easy: 10, uv: 2, water: 2, mech: 3, heat: 2, flex: 0, type: "Abierta", diff: 1, desc: "Sencillo y fiable. Para figuras decorativas y prototipos sin carga térmica.", nozzle: "205°C", bed: "55°C", tools: "Estándar" }
     ];
 
     let activeF = [];
@@ -109,26 +110,23 @@
 
         let scored = db.map(m => {
             let score = 0;
-            // Puntuación por filtros activos
-            activeF.forEach(k => {
-                score += m[k] * 20;
-            });
+            activeF.forEach(k => { score += m[k] * 20; });
             
             let status = '';
-            // Lógica CRÍTICA: Si la impresora es ABIERTA y el material requiere CERRADA, penalizamos brutalmente el score
+            // Lógica de seguridad: Si la impresora es ABIERTA y el material es de CERRADA, penalizamos masivamente
             if (currentHW === 'Abierta' && m.type === 'Cerrada') {
-                score -= 1000;
+                score -= 2000; 
                 status = 'low-match';
             }
-            // Si no hay filtros y el hardware no coincide
-            if (activeF.length === 0 && currentHW === 'Abierta' && m.type === 'Cerrada') status = 'low-match';
-            // Si hay filtros pero el material no encaja nada
+            // Si eliges Ambas, no hay penalización por hardware
+            if (currentHW === 'Ambas') status = '';
+
+            // Si hay filtros pero el material no encaja nada relevante
             if (activeF.length > 0 && score < 10 && status !== 'low-match') status = 'low-match';
 
             return { ...m, score, status };
         });
 
-        // Ordenamos por puntuación (los -1000 irán al final)
         scored.sort((a, b) => b.score - a.score);
 
         scored.forEach((m, i) => {
@@ -139,13 +137,13 @@
                     ${isBest ? '<span class="top-tag">RECOMENDADO</span>' : ''}
                     <h2 class="title">${m.name}</h2>
                     <span class="diff d${m.diff}">DIFICULTAD: ${m.diff==1?'BAJA':m.diff==2?'MEDIA':'ALTA'}</span>
-                    <p class="desc">${m.status === 'low-match' && currentHW === 'Abierta' && m.type === 'Cerrada' ? '⚠️ <b>Incompatible:</b> Este material requiere cámara cerrada para evitar warping térmico.' : m.desc}</p>
+                    <p class="desc">${m.status === 'low-match' && currentHW === 'Abierta' && m.type === 'Cerrada' ? '⚠️ <b>No recomendado:</b> Requiere impresora cerrada para evitar fallos de impresión.' : m.desc}</p>
                     <div class="params">
                         <div class="p-list">
                             <div class="p-item"><span class="p-label">HOTEND</span><span class="p-val">${m.nozzle}</span></div>
                             <div class="p-item"><span class="p-label">CAMA</span><span class="p-val">${m.bed}</span></div>
                             <div class="p-item"><span class="p-label">HARDWARE</span><span class="p-val">${m.tools}</span></div>
-                            <div class="p-item"><span class="p-label">IMPRESORA</span><span class="p-val">${m.type}</span></div>
+                            <div class="p-item"><span class="p-label">IDEAL PARA</span><span class="p-val">${m.type}</span></div>
                         </div>
                     </div>
                 </div>`;
