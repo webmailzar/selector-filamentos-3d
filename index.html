@@ -11,20 +11,43 @@
         .container { max-width: 500px; margin: auto; }
         
         header { text-align: center; margin-bottom: 35px; }
-        .web-logo { 
-            width: 80px; height: 80px; 
-            background: #1e293b; 
-            border-radius: 22px; 
-            margin: 0 auto 15px; 
-            border: 2px solid var(--p);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        
+        /* CABECERA CON EL NUEVO LOGO */
+        .logo-container {
+            display: inline-block;
+            background: #1e293b;
+            padding: 15px 25px;
+            border-radius: 20px;
+            margin-bottom: 15px;
             box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
         }
-        .web-logo svg { width: 50px; height: 50px; }
         
-        h1 { font-size: 2.4rem; font-weight: 900; margin: 0; letter-spacing: -2px; color: #1e293b; }
+        /* Recreando el diseño del logo en CSS */
+        .main-logo {
+            font-size: 2.8rem;
+            font-weight: 900;
+            letter-spacing: -2px;
+            color: var(--p);
+            display: flex;
+            gap: 2px;
+        }
+        
+        .l-char { position: relative; display: inline-block; }
+        
+        /* Efecto de línea blanca en S y F */
+        .l-s::after, .l-f::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 100%;
+            height: 4px;
+            background-color: white;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        h1 { font-size: 1rem; font-weight: 400; color: #1e293b; margin: 0; }
         .subtitle { font-size: 0.8rem; font-weight: 700; color: var(--m); text-transform: uppercase; letter-spacing: 2px; }
 
         .hw-box { background: var(--card); border-radius: 24px; padding: 25px; margin: 30px 0; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
@@ -62,11 +85,15 @@
 
 <div class="container">
     <header>
-        <div class="web-logo">
-            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <path d="M25 25 H75 V38 H40 V50 H70 V62 H40 V75 H25 Z" fill="#22c55e"/>
-                <rect x="60" y="50" width="15" height="25" fill="#22c55e"/>
-            </svg>
+        <div class="logo-container">
+            <div class="main-logo">
+                <span class="l-char l-s">S</span>
+                <span class="l-char">E</span>
+                <span class="l-char">L</span>
+                <span class="l-char l-f">F</span>
+                <span class="l-char">I</span>
+                <span class="l-char">L</span>
+            </div>
         </div>
         <h1>SELFIL</h1>
         <div class="subtitle">Guía de Filamentos 3D</div>
@@ -105,7 +132,7 @@
         { name: "ABS", ref: "Bambu ABS, Sunlu", tags: ['heat', 'mech'], machine: "Cerrada", desc: "Material industrial clásico. Gran resistencia térmica y acabado con acetona.", hot: "255°C", bed: "100°C", nozzle: "Normal", warn: "Obligatorio: Máquina Cerrada para evitar grietas por contracción térmica." },
         { name: "TPU 95A / 98A", ref: "Bambu TPU, Sunlu, Overture", tags: ['flex', 'easy'], shore: "95A", flex: 40, color: "#3b82f6", machine: "Abierta", desc: "Flexible todoterreno. El más fácil de imprimir de su clase. Ideal para carcasas y protectores.", hot: "235°C", bed: "45°C", nozzle: "Normal", warn: null },
         { name: "TPU 82A", ref: "NinjaTek Cheetah, Recreus", tags: ['flex'], shore: "82A", flex: 70, color: "#8b5cf6", machine: "Abierta", desc: "Dureza intermedia. Más elástico que el 95A pero aún manejable en extrusores directos.", hot: "230°C", bed: "40°C", nozzle: "Normal", warn: "Controla bien las retracciones para evitar hilos." },
-        { name: "TPU 70A", ref: "Recreus Filaflex 70A", tags: ['flex'], shore: "70A", flex: 95, color: "#ec4899", machine: "Abierta", desc: "Extremadamente elástico. Tacto suave similar a la silicona. Máxima capacidad de estiramiento.", hot: "220°C", bed: "35°C", nozzle: "Normal", warn: "Imprimir muy lento (15 mm/s) y sin retracciones agresivas." },
+        { name: "TPU 70A", ref: "Recreus Filaflex 70A", tags: ['flex'], shore: "70A", flex: 95, color: "#ec4899", machine: "Abierta", desc: "Extremadamente elástico. Tacto suave similar a la silicona.", hot: "220°C", bed: "35°C", nozzle: "Normal", warn: "Imprimir muy lento (15 mm/s) y sin retracciones agresivas." },
         { name: "FIBRA DE CARBONO", ref: "Bambu PA-CF, PETG-CF", tags: ['mech', 'heat'], machine: "Cerrada", desc: "Máxima rigidez estructural. Acabado mate industrial que oculta totalmente las capas.", hot: "280°C", bed: "95°C", nozzle: "Endurecida", warn: "Obligatorio: Máquina Cerrada y Boquilla de Acero Endurecido por abrasión." },
         { name: "PLA MADERA", ref: "Sunlu Wood, Smartfil", tags: ['look'], machine: "Abierta", desc: "Contiene fibras de madera real. Se puede tratar como madera (lijar/barnizar).", hot: "205°C", bed: "60°C", nozzle: "Especial (>0.6)", warn: "Usar boquilla de 0.6mm para evitar atascos de las fibras orgánicas." },
         { name: "PLA SILK / DUAL", ref: "Sunlu Silk, Bambu Silk", tags: ['look', 'easy'], machine: "Abierta", desc: "Acabado brillante seda. El más estético para piezas de exposición.", hot: "215°C", bed: "60°C", nozzle: "Normal", warn: "Cuidado: Las capas pegan menos entre sí que en un PLA normal." },
