@@ -46,4 +46,68 @@
         <div class="btn" onclick="toggle(this, 'water')">💧 AGUA</div>
         <div class="btn" onclick="toggle(this, 'mech')">🛠️ MECANIZABLE</div>
         <div class="btn" onclick="toggle(this, 'heat')">🔥 CALOR</div>
-        <div class="btn"
+        <div class="btn" onclick="toggle(this, 'flex')">➰ FLEXIBLE</div>
+    </div>
+    <div class="hw-box">
+        <span class="hw-label">Tipo de Impresora</span>
+        <div class="switch">
+            <div id="b1" class="sw-btn active" onclick="setPr('Abierta')">Abierta</div>
+            <div id="b2" class="sw-btn" onclick="setPr('Cerrada')">Cerrada</div>
+        </div>
+    </div>
+    <div id="res"></div>
+</div>
+<script>
+    const db = [
+        { name: "ASA", lvl: "Difícil", uv: 10, water: 8, mech: 10, heat: 9, flex: 0, type: "Cerrada", desc: "Grado automotriz. No amarillea. El mejor para mecanizar y usar en exterior.", set: ["255-270°C", "105°C", "Estándar", "Cerrada"] },
+        { name: "ABS", lvl: "Difícil", uv: 2, water: 7, mech: 10, heat: 9, flex: 0, type: "Cerrada", desc: "Industrial y resistente. Perfecto para piezas que requieren roscas o baño de acetona.", set: ["245-255°C", "100°C", "Estándar", "Cerrada"] },
+        { name: "PA-CF", lvl: "Alta", uv: 8, water: 4, mech: 9, heat: 10, flex: 1, type: "Cerrada", desc: "Nylon con Carbono. Rigidez extrema y máxima resistencia técnica.", set: ["280-300°C", "100°C", "Acero endurecido", "Cerrada"] },
+        { name: "PETG", lvl: "Fácil", uv: 7, water: 10, mech: 4, heat: 6, flex: 2, type: "Abierta", desc: "El todoterreno. Muy resistente al agua y químicos. Fácil de imprimir.", set: ["235-250°C", "75°C", "Estándar", "Abierta"] },
+        { name: "TPU", lvl: "Medio", uv: 7, water: 9, mech: 1, heat: 5, flex: 10, type: "Abierta", desc: "Material elástico. Ideal para juntas, neumáticos y protectores de impactos.", set: ["230°C", "50°C", "Extrusión Directa", "Abierta"] },
+        { name: "PLA", lvl: "Fácil", uv: 2, water: 2, mech: 3, heat: 2, flex: 0, type: "Abierta", desc: "Prototipado rápido y visual. Se deforma con el calor del sol.", set: ["210°C", "60°C", "Estándar", "Abierta"] }
+    ];
+    let fl = []; let pr = 'Abierta';
+    function toggle(el, k) {
+        el.classList.toggle('active');
+        fl.includes(k) ? fl = fl.filter(x => x !== k) : fl.push(k);
+        render();
+    }
+    function setPr(t) {
+        pr = t;
+        document.getElementById('b1').classList.toggle('active', t === 'Abierta');
+        document.getElementById('b2').classList.toggle('active', t === 'Cerrada');
+        render();
+    }
+    function render() {
+        const r = document.getElementById('res'); r.innerHTML = '';
+        let list = db.map(m => {
+            let s = 0;
+            fl.forEach(f => {
+                if (f === 'easy') s += (m.lvl === 'Fácil' ? 40 : -30);
+                else { s += m[f] * 15; if (m[f] < 4) s -= 80; }
+            });
+            if (pr === 'Abierta' && m.type === 'Cerrada') s -= 120;
+            return { ...m, s };
+        });
+        list.sort((a,b) => b.s - a.s).forEach((m, i) => {
+            if (fl.length > 0 && m.s < -10) return;
+            const risky = pr === 'Abierta' && m.type === 'Cerrada';
+            r.innerHTML += `
+                <div class="card ${risky ? 'risky' : ''}">
+                    ${i === 0 && fl.length > 0 ? '<span class="tag">TOP SELECCIÓN</span>' : ''}
+                    <h2 class="title">${m.name}</h2>
+                    <span class="diff">Dificultad: ${m.lvl}</span>
+                    <p class="desc">${risky ? '⚠️ <b>CUIDADO:</b> Requiere impresora CERRADA.' : m.desc}</p>
+                    <div class="params">
+                        <div class="p-item"><span class="p-label">Boquilla</span><span class="p-val">${m.set[0]}</span></div>
+                        <div class="p-item"><span class="p-label">Cama</span><span class="p-val">${m.set[1]}</span></div>
+                        <div class="p-item"><span class="p-label">Hardware</span><span class="p-val">${m.set[2]}</span></div>
+                        <div class="p-item"><span class="p-label">Impresora</span><span class="p-val">${m.type}</span></div>
+                    </div>
+                </div>`;
+        });
+    }
+    render();
+</script>
+</body>
+</html>
